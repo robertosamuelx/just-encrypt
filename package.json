@@ -1,0 +1,30 @@
+{
+  "name": "just-encrypt",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "description": "Aplicação para criptografia e descriptografia de arquivos",
+  "author": {
+    "name": "Roberto Samuel"
+  },
+  "scripts": {
+    "dev": "electron .",
+    "dist": "electron-builder --win"
+  },
+  "build": {
+    "appId": "robertosamuelx.electron.justencrypt",
+    "productName": "just-encrypt",
+    "copyright": "Roberto Samuel X",
+    "mac": {
+      "category": "public.app-category.utils",
+      "target": "dmg"
+    },
+    "win": {
+      "target": "nsis"
+    }
+  },
+  "devDependencies": {
+    "electron": "^9.2.0",
+    "electron-builder": "^22.8.0"
+  }
+}
