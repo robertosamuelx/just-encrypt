@@ -5,13 +5,71 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Just Ecrypt</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <!-- <link rel='stylesheet' type='text/css' media='screen' href='main.css'> -->
+    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
+    <!--Bootstrap-->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src='render.js' defer></script>
 </head>
 <body>
-    <input id="field-file" type="file" />
-    <input id="field-key" type="password" />
-    <button id="btn-show-key">show key</button>
-    <button id="btn-go">GO</button>
+    <!--inicio menu-->
+    <nav class="navbar navbar-dark navbar-expand-lg navbar-default fixed-top">
+        <div class="container-fluid">
+            <!--logo-->
+            <img src="img/new_logo.png">
+        </div>
+    </nav>
+    <!--fim menu-->
+    
+    <!-- inicio header -->
+    <header>
+        <form>
+            <div class="container">
+                <div class="row">
+                    <!--conversor-->
+                    <div class="col-lg-7 col-12 text-light jumbotron bg-transparent" id="conversor">
+                        <label class="labelInput btn btn-dark" id="selecione">
+                            <input type="file" multiple="multiple" required/>
+                            <span>Selecione os arquivos</span>
+                        </label>
+                    </div>
+                    
+                    <!--botões-->
+                    <div class="col-lg-5 col-12">
+                        <div>
+                            <div class="container text-right">            
+                                <div class="input_switch">
+                                    <input type="checkbox">
+                                    <span class="encriptar_desencriptar">
+                                        
+                                    </span>
+                                    <span class="encriptar">Encriptar</span>
+                                    <span class="desencriptar">Desencriptar</span>
+                                    
+                                </div>
+                            </div>
+                            <div class="form-group"> 
+                                <label>Digite sua palavra chave aqui</label>
+                                <input type="text" class="form-control form-control-lg" placeholder="Palavra chave">
+                                <div class="text-center" id="upload">
+                                    ou<br/>
+                                    Faça upload dela aqui<br/>
+                                    <button class="btn btn-primary" id="btn-small">Selecione</button>
+                                </div>
+                            </div>
+                            <div>
+                                <button class="btn btn-success form-control form-control-lg" id="btn-large" type="submit" value="submit">Enviar</button>                        
+                                <button class="btn btn-primary form-control form-control-lg">Receber</button>
+                            </div>
+                        </div>	
+                    </div>
+                </div>
+            </div>
+        </form>
+    </header>
+    <!-- fim header -->
+    
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
