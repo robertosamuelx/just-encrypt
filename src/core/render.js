@@ -1,6 +1,13 @@
-const encrypt = require('./encrypt/encrypt')
+const encrypt = require('./encrypt')
 
-let btn_show_key = document.getElementById('btn-show-key')
+//manusear o botão usando JS puro (não é muito usual hoje em dia)
+const btn_key_gen = document.getElementById('btn-key-gen')
+
+btn_key_gen.addEventListener('click', () => {
+    
+})
+
+/*let btn_show_key = document.getElementById('btn-show-key')
 let btn_go = document.getElementById('btn-go')
 let field_key = document.getElementById('field-key')
 let field_file = document.getElementById('field-file')
@@ -19,4 +26,4 @@ btn_go.addEventListener('click', () => {
     }
     else 
         alert('Você não selecionou nenhum arquivo!')
-})
+})*/

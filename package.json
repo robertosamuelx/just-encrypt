@@ -1,7 +1,7 @@
 {
   "name": "just-encrypt",
   "version": "1.0.0",
-  "main": "src/index.js",
+  "main": "src/core/index.js",
   "license": "MIT",
   "description": "Aplicação para criptografia e descriptografia de arquivos",
   "author": {
@@ -26,5 +26,8 @@
   "devDependencies": {
     "electron": "^9.2.0",
     "electron-builder": "^22.8.0"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
   }
 }

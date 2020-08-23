@@ -1,7 +1,27 @@
-/* const crypto = require('crypto');
+//import the libs
+const crypto = require('crypto');
 const fs = require('fs');
+
+const algorithm = process.env.algorithm;
+
+function generateKey(key_pass){
+    
+    return true
+}
+
+function cipher(path_input, key_pass, option){
+    
+    return true
+}
+
+function run(){
+
+    return true
+}
+
+/*
 const key_enc = fs.readFileSync('key.pem').toString();
-const algorithm = 'aes-192-cbc';
+
 console.log(key_enc);
 const decipher = crypto.createDecipheriv(algorithm,crypto.scryptSync('a','salt',24),Buffer.alloc(16,0));
 const key = decipher.update(key_enc,'hex','utf8') + decipher.final('utf8');
@@ -35,13 +55,6 @@ fs.writeFile('key.pem',encrypted, err => {
 }); */
 
 module.exports = {
-    generateKey(key_pass){
-
-    },
-    Cipher(path_input, path_key, key_pass){
-        return true
-    },
-    Decipher(path_input, path_key, key_pass){
-        return true
-    }
+    generateKey,
+    cipher
 }

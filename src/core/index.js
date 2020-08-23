@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const { app, BrowserWindow } = require('electron');
 
 function renderWindow(){
