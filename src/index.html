@@ -26,10 +26,10 @@
             <div class="container">
                 <div class="row">
                     <!--conversor-->
-                    <div class="col-lg-7 col-12 text-light jumbotron bg-transparent" id="conversor">
+                    <div class="col-lg-7 col-12 text-light jumbotron bg-transparent conversor-upload" id="conversor">
                         <label class="labelInput btn btn-dark" id="selecione">
                             <input type="file" multiple="multiple" required/>
-                            <span>Selecione os arquivos</span>
+                            <span>Selecione ou arraste os arquivos</span>
                         </label>
                     </div>
                     
@@ -68,8 +68,30 @@
     </header>
     <!-- fim header -->
     
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="js/jquery.bootstrap.js"></script>
+    <script type="text/javascript" src="js/jquery.drag.drop.js"></script>
+    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 
+    <!-- inicio arraste e solte -->
+    <script type="text/javascript">
+        jQuery(document).ready(function($){
+            $('.conversor-upload').on('dragover', function(event){
+                event.stopPropagation();
+                event.preventDefault();                
+                $(this).addClass('conversor-upload-hover')
+            })
+            $('.conversor-upload').on('dragleave', function(event){
+                event.preventDefault();
+                event.stopPropagation();
+                $(this).removeClass('conversor-upload-hover');
+            })
+            $('.conversor-upload').on('drop', function(event){
+                event.stopPropagation();
+                event.preventDefault();                
+                $(this).removeClass('conversor-upload-hover');
+            })
+        });
+    </script>
+    <!-- fim arraste e solte -->    
 </body>
 </html>

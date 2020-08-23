@@ -48,7 +48,7 @@ labelInput {
 }
 
 #selecione{
-    margin-left: 50px;
+    margin-left: 10px;
 }
 
 *{
@@ -131,4 +131,14 @@ labelInput {
 .input_switch input:checked + .encriptar_desencriptar + .encriptar + .desencriptar{
     opacity: 1;
 }
+
+.conversor-upload{
+    border: 1px solid #fff;
+}
+
+.conversor-upload-hover{
+    border-color:#0000FF;
+}
+
+
 
