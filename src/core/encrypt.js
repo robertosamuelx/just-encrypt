@@ -4,18 +4,24 @@ const fs = require('fs');
 
 const algorithm = process.env.algorithm;
 
-function generateKey(key_pass){
-    
+function generateKey(key_pass=''){
+    const cipher = builderCipher(key_pass, 'cipher')
     return true
 }
 
-function cipher(path_input, key_pass, option){
-    
-    return true
+function builderCipher(key_pass, option){
+    const buffer = Buffer.alloc(16,0)
+
+    const sync = crypto.scryptSync(key_pass, '.', 24)
+
+    if (option == 'cipher')
+        return crypto.createCipheriv(algorithm, sync, buffer)
+    else
+        return crypto.createDecipheriv(algorithm, sync, buffer)
 }
 
 function run(){
-
+    
     return true
 }
 
@@ -56,5 +62,5 @@ fs.writeFile('key.pem',encrypted, err => {
 
 module.exports = {
     generateKey,
-    cipher
+    run
 }
