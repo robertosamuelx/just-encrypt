@@ -3,12 +3,14 @@ const crypto = require('crypto');
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
+const { dialog } = require('electron').remote;
 
 const algorithm = process.env.algorithm;
 const default_key = process.env.default_key;
 
 const homedir = os.homedir()
 const rootFolder = homedir + path.sep + 'JustEncrypt';
+
 
 function createRootFolder(){
     if(!existRootFolder())
@@ -23,7 +25,7 @@ function existRootFolder(){
 
 function createKeyFolder(){
     createRootFolder()
-    const key_folder = rootFolder + path.sep + 'Keys'
+    const key_folder = rootFolder + path.sep + 'keys'
     if(!existKeyFolder(key_folder))
         fs.mkdirSync(key_folder)
     return key_folder
@@ -40,7 +42,7 @@ function generateKey(key_pass=''){
 
     const keys_folder = createKeyFolder()
 
-    const key_file = keys_folder + path.sep + 'key_' + Math.random(256) + '.pem'
+    const key_file = keys_folder + path.sep + 'key_' + Date.now() + '.pem'
 
     writeFile(key_file, key)
 
@@ -58,7 +60,7 @@ function builderCipher(key_pass, option){
         return crypto.createDecipheriv(algorithm, sync, buffer)
 }
 
-function run(){
+function run(selected_files=[]){
     
     return true
 }
@@ -74,7 +76,11 @@ function readAndWriteStream(input_path='', output_path='', cipher){
 function writeFile(output_path='', text=''){
     fs.writeFile(output_path, text, err => {
         if (err) throw err
-        alert('Arquivo gerado com sucesso!')
+        dialog.showMessageBox({
+            message: 'Arquivo gerado com sucesso!',
+            title: 'AVISO',
+            buttons: ['OK']
+        })
     })
 }
 
@@ -116,8 +122,31 @@ fs.writeFile('key.pem',encrypted, err => {
 
 //manusear o botão usando JS puro (não é muito usual hoje em dia)
 const btn_key_gen = document.getElementById('btn-key-gen')
+const btn_upload_key = document.getElementById('btn-small')
+const txt_key = document.getElementById('txt-key')
+const txt_new_key = document.getElementById('txt-new-key')
+const files = document.getElementById('files')
+const btn_go = document.getElementById('btn-large')
 
+//gerar uma nova senha
 btn_key_gen.addEventListener('click', () => {
-    generateKey('amem')
-    alert('chave gerada')
+    let new_key = txt_new_key.value
+    if(new_key.length < 1)
+        new_key = default_key
+    generateKey(new_key)
+})
+
+btn_go.addEventListener('click', el => {
+    el.preventDefault() //evita que o form seja submetido
+    if(files.files.length > 0){
+        const selected_files = files.files
+
+        let selected_files_clean = []
+
+        for(let i = 0; i < selected_files.length; i++){
+            selected_files_clean.push(selected_files[i].path)
+        }
+
+        run(selected_files_clean)
+    }
 })
