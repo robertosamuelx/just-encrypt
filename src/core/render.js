@@ -1,12 +1,29 @@
 //import the libs
-const crypto = require('crypto');
-const fs = require('fs');
-const os = require('os');
-const path = require('path');
-const { dialog } = require('electron').remote;
+const crypto = require('crypto')
+const fs = require('fs')
+const os = require('os')
+const path = require('path')
+const { dialog } = require('electron').remote
 
-const algorithm = process.env.algorithm;
-const default_key = process.env.default_key;
+// connect to MongoDB
+const mongoose = require('mongoose')
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+})
+//model Mongo
+const Log = mongoose.model('Log',{
+    user: String,
+    file_input: String,
+    file_output: String,
+    option: String,
+    key: String,
+    when: Date
+});
+
+const algorithm = process.env.ALGORTITHM;
+const default_key = process.env.DEFAULT_KEY;
 
 const homedir = os.homedir()
 const rootFolder = homedir + path.sep + 'JustEncrypt';
@@ -36,9 +53,9 @@ function existKeyFolder(key_folder=''){
 }
 
 function generateKey(key_pass=''){
-    const cipher = builderCipher(key_pass, 'cipher')
+    const cipher = builderCipher(default_key, 'cipher')
 
-    const key = cipher.update(default_key, 'utf8','hex') + cipher.final('hex')
+    const key = cipher.update(key_pass, 'utf8','hex') + cipher.final('hex')
 
     const keys_folder = createKeyFolder()
 
@@ -47,6 +64,12 @@ function generateKey(key_pass=''){
     writeFile(key_file, key)
 
     return true
+}
+
+function decipherKey(file_input){
+    const decipher = builderCipher(default_key, 'decipher')
+    const key_enc = readFile(file_input)
+    return decipher.update(key_enc, 'hex','utf8') + decipher.final('utf8');
 }
 
 function builderCipher(key_pass, option){
@@ -60,9 +83,17 @@ function builderCipher(key_pass, option){
         return crypto.createDecipheriv(algorithm, sync, buffer)
 }
 
-function run(selected_files=[]){
-    
-    return true
+function saveLog(user='',file_input='',file_output='',option='', key=''){
+    const log = new Log({
+        user: user,
+        file_input: file_input,
+        file_output: file_output,
+        option: option,
+        key: key,
+        when: Date.now()
+    });
+
+    log.save().then(() => {console.log('done')})
 }
 
 function readAndWriteStream(input_path='', output_path='', cipher){
@@ -73,7 +104,7 @@ function readAndWriteStream(input_path='', output_path='', cipher){
     input.pipe(cipher).pipe(output)
 }
 
-function writeFile(output_path='', text=''){
+function writeFile(output_path, text){
     fs.writeFile(output_path, text, err => {
         if (err) throw err
         dialog.showMessageBox({
@@ -83,6 +114,17 @@ function writeFile(output_path='', text=''){
         })
     })
 }
+
+function readFile(input_path){
+    return fs.readFileSync(input_path).toString()
+}
+
+function run(selected_files=[], key_pass){
+    //saveLog('beto','a.csv','a_enc.csv','cipher','chave')
+    
+    return true
+}
+
 
 /*
 const key_enc = fs.readFileSync('key.pem').toString();
@@ -137,7 +179,7 @@ btn_key_gen.addEventListener('click', () => {
 })
 
 btn_go.addEventListener('click', el => {
-    el.preventDefault() //evita que o form seja submetido
+    
     if(files.files.length > 0){
         const selected_files = files.files
 
@@ -146,7 +188,15 @@ btn_go.addEventListener('click', el => {
         for(let i = 0; i < selected_files.length; i++){
             selected_files_clean.push(selected_files[i].path)
         }
+        let key_pass = ''
 
-        run(selected_files_clean)
+        if(txt_key.value.length > 0)
+            key_pass = txt_key.value
+
+        //implementar logica pra pegar o arquivo de chave, descriptografar e pegar a chave
+        const key = decipherKey("C:/Users/rober/JustEncrypt/keys/key_1598739842049.pem")
+        console.log(key)
+
+        run(selected_files_clean,key_pass)
     }
 })
