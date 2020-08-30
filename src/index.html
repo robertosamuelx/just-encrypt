@@ -42,18 +42,29 @@
                                     <span class="encriptar_desencriptar">
                                         
                                     </span>
-                                    <span class="encriptar">Encriptar</span>
-                                    <span class="desencriptar">Desencriptar</span>
+                                    <span class="encriptar">ENCRIPTAR</span>
+                                    <span class="desencriptar">DESENCRIPTAR</span>
                                     
                                 </div>
                             </div>
                             <div class="form-group"> 
-                                <label>Digite sua palavra chave aqui</label>
-                                <input type="text" class="form-control form-control-lg" placeholder="Palavra chave">
+                                <label>Digite sua palavra chave INPUT GROUP</label>
+                                <div class="row">
+                                    <div class="col-lg-10 col-12">
+                                        <input type="password" class="form-control form-control-lg" id="chave" 
+                                        placeholder="Palavra chave">
+                                    </div>
+                                    <div class="col-lg-1 col-12">
+                                        <img src="img/icons8-eye-50.png" id="mostrar">
+                                    </div>
+                                </div>
                                 <div class="text-center" id="upload">
                                     ou<br/>
-                                    Faça upload dela aqui<br/>
-                                    <button class="btn btn-primary" id="btn-small">Selecione</button>
+                                    Faça upload<br/>
+                                    <label class="labelInput btn btn-primary" id="btn-small">
+                                        <input type="file" multiple="multiple" required/>
+                                        <span>Selecione</span>
+                                    </label>
                                 </div>
                             </div>
                             <div>
@@ -71,7 +82,27 @@
     <script type="text/javascript" src="js/jquery.bootstrap.js"></script>
     <script type="text/javascript" src="js/jquery.drag.drop.js"></script>
     <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-
+    <script type="text/javascript" src="js/jquery.olho.min.js"></script>
+    
+    <!--Início olho-->
+    <script type="text/javascript">
+        var chave = $('#chave');
+        var mostrar= $("#mostrar");
+        
+        mostrar.mouseup(function() {
+            chave.attr("type", "password");
+        });
+        
+        mostrar.mousedown(function() {
+            chave.attr("type", "text");
+        });
+        
+        $( "#mostrar" ).mouseout(function() { 
+            $("#chave").attr("type", "password");
+        });        
+    </script>    
+    <!-- fim olho -->
+    
     <!-- inicio arraste e solte -->
     <script type="text/javascript">
         jQuery(document).ready(function($){
@@ -92,6 +123,6 @@
             })
         });
     </script>
-    <!-- fim arraste e solte -->    
+    <!-- fim arraste e solte -->   
 </body>
 </html>

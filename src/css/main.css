@@ -59,7 +59,7 @@ labelInput {
     font-size: 20px;
     font-family: arial;
     line-height: 1.6;
-    width: 110px;
+    width: 140px;
     height: 20px;
     position: relative;
     background: #00BFFF;
@@ -139,6 +139,3 @@ labelInput {
 .conversor-upload-hover{
     border-color:#0000FF;
 }
-
-
-
