@@ -1,10 +1,15 @@
+body{
+    font-family: arial;
+}
+
 header{
     padding: 150px 0;
 }
 
 .navbar-default{
     /*Se não definir uma cor atravessa o menu*/
-    background: white 
+    background: white; 
+    
 }
 
 #conversor{
@@ -19,6 +24,21 @@ header{
 #btn-small{
     margin-top: 15px;
     margin-bottom: 30px;
+}
+
+#generate-key{
+    font-size: 13px;      
+}
+
+#txt-key{
+    border-right-style: none;  
+}
+
+input{
+    outline: none;
+}
+#mostrar{
+    background-color: white;
 }
 
 #upload{
