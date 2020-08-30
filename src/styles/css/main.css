@@ -1,15 +1,10 @@
-body{
-    font-family: arial;
-}
-
 header{
     padding: 150px 0;
 }
 
 .navbar-default{
     /*Se não definir uma cor atravessa o menu*/
-    background: white; 
-    
+    background: white 
 }
 
 #conversor{
@@ -24,21 +19,6 @@ header{
 #btn-small{
     margin-top: 15px;
     margin-bottom: 30px;
-}
-
-#generate-key{
-    font-size: 12px;
-}
-
-#txt-key{
-    border-right-style: none;  
-}
-
-input{
-    outline: none;
-}
-#mostrar{
-    background-color: white;
 }
 
 #upload{
@@ -79,7 +59,7 @@ labelInput {
     font-size: 20px;
     font-family: arial;
     line-height: 1.6;
-    width: 140px;
+    width: 110px;
     height: 20px;
     position: relative;
     background: #00BFFF;
@@ -159,3 +139,6 @@ labelInput {
 .conversor-upload-hover{
     border-color:#0000FF;
 }
+
+
+
