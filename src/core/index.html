@@ -5,30 +5,30 @@
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <title>Just Ecrypt</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
+        <link rel='stylesheet' type='text/css' media='screen' href="../styles/css/main.css" >
     <!--Bootstrap-->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <script src='render.js' defer></script>
+     <link href="../styles/css/bootstrap.min.css" rel="stylesheet">
+    <script src="../core/render.js" defer></script>
 </head>
 <body>
     <!--inicio menu-->
     <nav class="navbar navbar-dark navbar-expand-lg navbar-default fixed-top">
         <div class="container-fluid">
             <!--logo-->
-            <img src="img/new_logo.png">
+            <img src="../assets/img/new_logo.png">
         </div>
     </nav>
     <!--fim menu-->
     
     <!-- inicio header -->
     <header>
-        <form>
+        
             <div class="container">
                 <div class="row">
                     <!--conversor-->
                     <div class="col-lg-7 col-12 text-light jumbotron bg-transparent conversor-upload" id="conversor">
                         <label class="labelInput btn btn-dark" id="selecione">
-                            <input type="file" multiple="multiple" required/>
+                            <input type="file" id="files" multiple="multiple" required/>
                             <span>Selecione ou arraste os arquivos</span>
                         </label>
                     </div>
@@ -51,38 +51,39 @@
                                 <label>Digite sua palavra chave INPUT GROUP</label>
                                 <div class="row">
                                     <div class="col-lg-10 col-12">
-                                        <input type="password" class="form-control form-control-lg" id="chave" 
-                                        placeholder="Palavra chave">
+                                        <input type="text" class="form-control form-control-lg" id="txt-key" placeholder="Palavra chave">
                                     </div>
                                     <div class="col-lg-1 col-12">
-                                        <img src="img/icons8-eye-50.png" id="mostrar">
+                                        <img src="../assets/img/olho2.png" id="mostrar">
                                     </div>
                                 </div>
                                 <div class="text-center" id="upload">
                                     ou<br/>
-                                    Faça upload<br/>
-                                    <label class="labelInput btn btn-primary" id="btn-small">
-                                        <input type="file" multiple="multiple" required/>
-                                        <span>Selecione</span>
-                                    </label>
+                                    Faça upload dela aqui<br/>
+                                    <button class="btn btn-primary" id="btn-small">Selecione</button>
+                                    <!-- exemplo de botão pra gerar a chave -->
+                                    ou
+                                    <button class="btn btn-primary" id="btn-key-gen">Gere uma chave</button>
+                                    <input type="text" class="form-control form-control-sm" id ="txt-new-key" placeholder="Palavra chave">
+
                                 </div>
                             </div>
                             <div>
-                                <button class="btn btn-success form-control form-control-lg" id="btn-large" type="submit" value="submit">Enviar</button>                        
-                                <button class="btn btn-primary form-control form-control-lg">Receber</button>
+                                <button class="btn btn-success form-control form-control-lg" id="btn-large">GERAR</button>                        
+                                <!-- <button class="btn btn-primary form-control form-control-lg">Receber</button> -->
                             </div>
                         </div>	
                     </div>
                 </div>
             </div>
-        </form>
+        
     </header>
     <!-- fim header -->
     
-    <script type="text/javascript" src="js/jquery.bootstrap.js"></script>
-    <script type="text/javascript" src="js/jquery.drag.drop.js"></script>
-    <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript" src="js/jquery.olho.min.js"></script>
+    <script type="text/javascript" src="../styles/js/jquery.bootstrap.js"></script>
+    <script type="text/javascript" src="../styles/js/jquery.drag.drop.js"></script>
+    <script type="text/javascript" src="../styles/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript" src="../styles/js/jquery.olho.min.js"></script>
     
     <!--Início olho-->
     <script type="text/javascript">
