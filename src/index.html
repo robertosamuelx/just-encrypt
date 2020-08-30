@@ -13,89 +13,124 @@
 <body>
     <!--inicio menu-->
     <nav class="navbar navbar-dark navbar-expand-lg navbar-default fixed-top">
-        <div class="container-fluid">
+        <div class="mx-auto">
             <!--logo-->
-            <img src="assets/img/new_logo.png">
+            <img src="../src/assets/img/new_logo.png">
         </div>
     </nav>
     <!--fim menu-->
     
     <!-- inicio header -->
-    <header>
-            <div class="container">
-                <div class="row">
-                    <!--conversor-->
-                    <div class="col-lg-7 col-12 text-light jumbotron bg-transparent conversor-upload" id="conversor">
-                        <label class="labelInput btn btn-dark" id="selecione">
-                            <input type="file" id="files" multiple="multiple" required/>
-                            <span>Selecione ou arraste os arquivos</span>
-                        </label>
-                    </div>
-                    
-                    <!--botões-->
-                    <div class="col-lg-5 col-12">
-                        <div>
-                            <div class="container text-right">            
-                                <div class="input_switch">
-                                    <input type="checkbox">
-                                    <span class="encriptar_desencriptar">
-                                        
-                                    </span>
-                                    <span class="encriptar">Encriptar</span>
-                                    <span class="desencriptar">Desencriptar</span>
+    <header>        
+        <div class="container">
+            <div class="row">
+                <!--conversor-->
+                <div class="col-lg-7 col-12 text-light jumbotron bg-transparent converter-upload" id="converter">
+                    <label class="label-input btn btn-dark" id="select">
+                        <input type="file" id="files" multiple="multiple" required/>
+                        <span>Selecione ou arraste os arquivos</span>
+                    </label>
+                </div>
+                
+                <!--botões-->
+                <div class="col-lg-5 col-12">
+                    <div>
+                        <!-- Inicio toggle -->
+                        <div class="container text-right">            
+                            <div class="input-switch">
+                                <input type="checkbox">
+                                <span class="encrypt-decrypt"></span>
+                                <span class="encrypt">ENCRIPTAR</span>
+                                <span class="decrypt">DESENCRIPTAR</span>                                
+                            </div>
+                        </div>
+                        <!-- Fim toggle -->
+                        <div class="form-group"> 
+                            <label>Digite sua palavra chave</label>
+                            <div class="row">
+                                <div class="col-lg-12 col-12">
+                                    <!-- Inicio input key -->
+                                    <div class="input-group">
+                                        <input type="password" class="form-control form-control-lg" id="txt-key" placeholder="Palavra chave" focusable="false">
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="show" ><img src="../src/assets/img/eye.png"></span>
+                                        </div>
+                                    </div>
+                                    <!-- Fim input key -->
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <a href="" id="generate-key">Não tem uma chave? Gere aqui</a>
+                                </div>
+                            </div>
+                            <div class="text-center" id="upload">
+                                ou<br/>
+                                Faça upload dela aqui<br/>
+                                <button class="btn btn-primary btn-small" id="">Selecione</button>
+                                <!-- exemplo de botão pra gerar a chave -->
+                                <!-- ou
+                                    <button class="btn btn-primary" id="btn-key-gen">Gere uma chave</button> -->
                                     
                                 </div>
                             </div>
-                            <div class="form-group"> 
-                                <label>Digite sua palavra chave aqui</label>
-                                <input type="text" class="form-control form-control-lg" id="txt-key" placeholder="Palavra chave">
-                                <div class="text-center" id="upload">
-                                    ou<br/>
-                                    Faça upload dela aqui<br/>
-                                    <button class="btn btn-primary" id="btn-small">Selecione</button>
-
-                                    <!-- exemplo de botão pra gerar a chave -->
-                                    ou
-                                    <button class="btn btn-primary" id="btn-key-gen">Gere uma chave</button>
-                                    <input type="text" class="form-control form-control-sm" id ="txt-new-key" placeholder="Palavra chave">
-
-                                </div>
-                            </div>
                             <div>
-                                <button class="btn btn-success form-control form-control-lg" id="btn-large">GERAR</button>                        
+                                <button class="btn btn-success form-control form-control-lg btn-large" id="">GERAR</button>                        
                                 <!-- <button class="btn btn-primary form-control form-control-lg">Receber</button> -->
-                            </div>
-                        </div>	
-                    </div>
+                            </div>       
+                        </div>
+                    </div>    
                 </div>
             </div>
+        </div>
+            
     </header>
-    <!-- fim header -->
-    
-    <script type="text/javascript" src="styles/js/jquery.bootstrap.js"></script>
-    <script type="text/javascript" src="styles/js/jquery.drag.drop.js"></script>
-    <script type="text/javascript" src="styles/js/bootstrap.bundle.min.js"></script>
-
-    <!-- inicio arraste e solte -->
-    <script type="text/javascript">
-        jQuery(document).ready(function($){
-            $('.conversor-upload').on('dragover', function(event){
-                event.stopPropagation();
-                event.preventDefault();                
-                $(this).addClass('conversor-upload-hover')
-            })
-            $('.conversor-upload').on('dragleave', function(event){
-                event.preventDefault();
-                event.stopPropagation();
-                $(this).removeClass('conversor-upload-hover');
-            })
-            $('.conversor-upload').on('drop', function(event){
-                event.stopPropagation();
-                event.preventDefault();                
-                $(this).removeClass('conversor-upload-hover');
-            })
-        });
-    </script>
-    <!-- fim arraste e solte -->    
+        <!-- fim header -->
+        <script type="text/javascript" src="styles/js/jquery.js"></script>
+        <script type="text/javascript" src="styles/js/bootstrap.bundle.min.js"></script>        
+        <!--Início olho-->
+        <script type="text/javascript">
+            var key = $('#txt-key');
+            var show= $("#show");
+            
+            $(document).ready(function(){
+                var show =  $('#show');
+                show.on('click', function(){
+                    var key = $('#txt-key');
+                    if(key.attr('type') == 'password')
+                    {
+                        key.attr('type', 'text');
+                        show.val('Hide');
+                    } else {
+                        key.attr('type', 'password');
+                        show.val('Show');
+                    }
+                });
+            });
+            
+        </script>    
+        <!-- fim olho -->
+        
+        <!-- inicio arraste e solte -->
+        <script type="text/javascript">
+            jQuery(document).ready(function($){
+                $('.converter-upload').on('dragover', function(event){
+                    event.stopPropagation();
+                    event.preventDefault();                
+                    $(this).addClass('converter-upload-hover')
+                })
+                $('.converter-upload').on('dragleave', function(event){
+                    event.preventDefault();
+                    event.stopPropagation();
+                    $(this).removeClass('converter-upload-hover');
+                })
+                $('.converter-upload').on('drop', function(event){
+                    event.stopPropagation();
+                    event.preventDefault();                
+                    $(this).removeClass('converter-upload-hover');
+                })
+            });
+        </script>
+        <!-- fim arraste e solte -->   
 </body>
 </html>
