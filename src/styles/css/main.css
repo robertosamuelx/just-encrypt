@@ -1,24 +1,45 @@
+body{
+    font-family: arial;
+}
+
 header{
     padding: 150px 0;
 }
 
 .navbar-default{
     /*Se não definir uma cor atravessa o menu*/
-    background: white 
+    background: white; 
+    
 }
 
-#conversor{
+#converter{
     background: linear-gradient(90deg,  #0000FF 0%, #00BFFF  100%);
     padding: 200px;
 }
 
-#btn-large{
+.btn-large{
     margin-bottom: 10px;
 }
 
-#btn-small{
+.btn-small{
     margin-top: 15px;
     margin-bottom: 30px;
+}
+
+#generate-key{
+    font-size: 12px;
+}
+
+#txt-key{
+    border-right-style: none;  
+}
+
+input[type="password"]{
+    outline: none;
+    box-shadow: none;
+}
+#show{
+    background-color: white;
 }
 
 #upload{
@@ -26,12 +47,12 @@ header{
     margin-bottom: 30px;
 }
 
-label.labelInput input[type="file"] {
+label.label-input input[type="file"] {
     position: fixed;
     top: -1000px;
 }
 
-labelInput {
+label-input {
     border: 2px solid #AAA;
     border-radius: 4px;
     padding: 2px 5px;
@@ -40,14 +61,14 @@ labelInput {
     display: inline-block;
 }
 
-.labelInput :invalid + span {
+.label-input :invalid + span {
     color: #FFF;
 }
-.labelInput :valid + span {
+.label-input :valid + span {
     color: #00BFFF;
 }
 
-#selecione{
+#select{
     margin-left: 10px;
 }
 
@@ -55,11 +76,11 @@ labelInput {
     box-sizing: border-box;
 }
 
-.input_switch{
+.input-switch{
     font-size: 20px;
     font-family: arial;
     line-height: 1.6;
-    width: 110px;
+    width: 140px;
     height: 20px;
     position: relative;
     background: #00BFFF;
@@ -69,7 +90,7 @@ labelInput {
     margin-left: 15;
 }
 
-.input_switch input{
+.input-switch input{
     position: absolute;
     left: 0;
     top: 0;
@@ -80,7 +101,7 @@ labelInput {
     z-index: 10;
 }
 
-.input_switch .encriptar_desencriptar{
+.input-switch .encrypt-decrypt{
     position: absolute;
     left: 0;
     top: 0;
@@ -93,7 +114,7 @@ labelInput {
     box-shadow: 0 1px 4px #00000a;
 }
 
-.input_switch .encriptar{
+.input-switch .encrypt{
     position: absolute;
     left: 0;
     top: 0;
@@ -105,7 +126,7 @@ labelInput {
     transition: all 0.3s ease-in-out;
     font-size: 13px;
 }
-.input_switch .desencriptar{
+.input-switch .decrypt{
     position: absolute;
     left: 0;
     top: 0;
@@ -119,26 +140,23 @@ labelInput {
     font-size: 13px;
 }
 
-.input_switch input:checked + .encriptar_desencriptar{
+.input-switch input:checked + .encrypt-decrypt{
     left: calc(100% - 24px);
     background: #070752;
 }
 
-.input_switch input:checked + .encriptar_desencriptar + .encriptar{
+.input-switch input:checked + .encrypt-decrypt + .encrypt{
     opacity: 0;
 }
 
-.input_switch input:checked + .encriptar_desencriptar + .encriptar + .desencriptar{
+.input-switch input:checked + .encrypt-decrypt + .encrypt + .decrypt{
     opacity: 1;
 }
 
-.conversor-upload{
+.converter-upload{
     border: 1px solid #fff;
 }
 
-.conversor-upload-hover{
+.converter-upload-hover{
     border-color:#0000FF;
 }
-
-
-
