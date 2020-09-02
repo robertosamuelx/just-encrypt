@@ -1,6 +1,8 @@
 const dotenv = require('dotenv');
 dotenv.config();
 const { app, BrowserWindow } = require('electron');
+const path = require('path');
+const url = require('url');
 
 function renderWindow(){
     let window = new BrowserWindow({
@@ -9,7 +11,10 @@ function renderWindow(){
         webPreferences: {
             nodeIntegration: true
         },
-        resizable: true
+        resizable: true,
+        icon: url.format({
+            pathname: path.join(__dirname, '../img/icon.png')
+        }) 
     });
 
     window.loadFile("src/index.html");

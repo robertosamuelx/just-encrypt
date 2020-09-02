@@ -4,6 +4,7 @@ const fs = require('fs')
 const os = require('os')
 const path = require('path')
 const { dialog } = require('electron').remote
+const { shell } = require('electron')
 
 // connect to MongoDB
 const mongoose = require('mongoose')
@@ -57,11 +58,11 @@ function generateKey(key_pass=''){
 
     const key = cipher.update(key_pass, 'utf8','hex') + cipher.final('hex')
 
-    const keys_folder = createKeyFolder()
+    const keys_folder = createKeyFolder() + path.sep
 
-    const key_file = keys_folder + path.sep + 'key_' + Date.now() + '.pem'
+    const key_file = 'key_' + Date.now() + '.pem'
 
-    writeFile(key_file, key)
+    writeFile(keys_folder, key_file, key)
 
     return true
 }
@@ -104,13 +105,16 @@ function readAndWriteStream(input_path='', output_path='', cipher){
     input.pipe(cipher).pipe(output)
 }
 
-function writeFile(output_path, text){
-    fs.writeFile(output_path, text, err => {
+function writeFile(output_path, output_file, text){
+    const final_path = output_path + output_file
+    fs.writeFile(final_path, text, err => {
         if (err) throw err
         dialog.showMessageBox({
-            message: 'Arquivo gerado com sucesso!',
+            message: `Arquivo ${output_file} gerado com sucesso!`,
             title: 'AVISO',
             buttons: ['OK']
+        }).then(() => {
+            shell.openPath(output_path)
         })
     })
 }
@@ -164,11 +168,28 @@ fs.writeFile('key.pem',encrypted, err => {
 
 //manusear o botão usando JS puro (não é muito usual hoje em dia)
 const btn_key_gen = document.getElementById('btn-key-gen')
-const btn_upload_key = document.getElementById('btn-small')
+const btn_upload_key = document.getElementById('btn-key-upload')
 const txt_key = document.getElementById('txt-key')
 const txt_new_key = document.getElementById('txt-new-key')
 const files = document.getElementById('files')
-const btn_go = document.getElementById('btn-large')
+const btn_go = document.getElementById('btn-go')
+let key_path = ''
+
+btn_upload_key.addEventListener('click', () => {
+    dialog.showOpenDialog({
+        title: 'ESCOLHA O ARQUIVO CHAVE',
+        filters: [
+            {
+                name: 'Keys',
+                extensions: ['pem']
+            }
+        ]
+    }).then(value => {
+        key_path = value.filePaths[0]
+    }).catch( err => {
+        console.error(err)
+    })
+})
 
 //gerar uma nova senha
 btn_key_gen.addEventListener('click', () => {
@@ -178,7 +199,7 @@ btn_key_gen.addEventListener('click', () => {
     generateKey(new_key)
 })
 
-btn_go.addEventListener('click', el => {
+btn_go.addEventListener('click', () => {
     
     if(files.files.length > 0){
         const selected_files = files.files
@@ -188,15 +209,17 @@ btn_go.addEventListener('click', el => {
         for(let i = 0; i < selected_files.length; i++){
             selected_files_clean.push(selected_files[i].path)
         }
+
         let key_pass = ''
+
+        if(key_path != '')
+            key_pass = decipherKey(key_path)
 
         if(txt_key.value.length > 0)
             key_pass = txt_key.value
 
-        //implementar logica pra pegar o arquivo de chave, descriptografar e pegar a chave
-        const key = decipherKey("C:/Users/rober/JustEncrypt/keys/key_1598739842049.pem")
-        console.log(key)
+        console.log(key_pass)
 
-        run(selected_files_clean,key_pass)
+        //run(selected_files_clean,key_pass)
     }
 })
