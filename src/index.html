@@ -38,7 +38,7 @@
                         <!-- Inicio toggle -->
                         <div class="container text-right">            
                             <div class="input-switch">
-                                <input type="checkbox">
+                                <input type="checkbox" unchecked />
                                 <span class="encrypt-decrypt"></span>
                                 <span class="encrypt">ENCRIPTAR</span>
                                 <span class="decrypt">DESENCRIPTAR</span>                                
@@ -61,76 +61,129 @@
                             </div>
                             <div class="row">
                                 <div class="col-12">
-                                    <a href="" id="generate-key">Não tem uma chave? Gere aqui</a>
+                                    <a data-toggle="modal" data-target="#conteudoModal" href="" id="generate-key">Não tem uma chave? Gere aqui</a>
+                                    <!--Modal-->
+                                    <div id="conteudoModal" class="modal fade">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <!--titulo-->
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Crie sua chave</h4>
+                                                    <button class="close" data-dismiss ="modal" arial-label="Fechar"> &times;</button> 
+                                                    <!--botão de fechar o modal "X"-->
+                                                    <span aria-hidden = "true"></span>
+                                                </div>
+                                                <!--Conteúdo-->
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-4">
+                                                            <span> Palavra secreta:</span>
+                                                        </div>
+                                                        <div class="col-8">
+                                                            <div class="input-group">
+                                                                <input type="password" class="form-control" id="txt-key-modal" placeholder="Palavra secreta">
+                                                                <div class="input-group-append">
+                                                                    <span class="input-group-text" id="show-modal" ><img src="../src/assets/img/eye.png"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <br/>  
+                                                </div>
+                                                <!--Modal rodapé-->
+                                                <div class="modal-footer">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 col-12">
+                                                            <button class="btn btn-primary" id="">Gerar a chave</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="text-center" id="upload">
                                 ou<br/>
                                 Faça upload dela aqui<br/>
-                                <button class="btn btn-primary btn-small" id="">Selecione</button>
-                                <!-- exemplo de botão pra gerar a chave -->
-                                <!-- ou
-                                    <button class="btn btn-primary" id="btn-key-gen">Gere uma chave</button> -->
-                                    
-                                </div>
+                                <button class="btn btn-primary btn-small" id="">Selecione</button>                                    
                             </div>
-                            <div>
-                                <button class="btn btn-success form-control form-control-lg btn-large" id="">GERAR</button>                        
-                                <!-- <button class="btn btn-primary form-control form-control-lg">Receber</button> -->
-                            </div>       
                         </div>
-                    </div>    
-                </div>
+                        <div>
+                            <button class="btn btn-success form-control form-control-lg btn-large" id="">GERAR</button>                        
+                        </div>       
+                    </div>
+                </div>    
             </div>
         </div>
-            
-    </header>
-        <!-- fim header -->
-        <script type="text/javascript" src="./styles/js/jquery.js"></script>
-        <script type="text/javascript" src="./styles/js/bootstrap.bundle.min.js"></script>        
-        <!--Início olho-->
-        <script type="text/javascript">
+    </div>
+    
+</header>
+<!-- fim header -->
+<script type="text/javascript" src="./styles/js/jquery.js"></script>
+<script type="text/javascript" src="./styles/js/bootstrap.bundle.min.js"></script>        
+<!--Início olho-->
+<script type="text/javascript">        
+    $(document).ready(function(){
+        var show =  $('#show');
+        show.on('click', function(){
             var key = $('#txt-key');
-            var show= $("#show");
-            
-            $(document).ready(function(){
-                var show =  $('#show');
-                show.on('click', function(){
-                    var key = $('#txt-key');
-                    if(key.attr('type') == 'password')
-                    {
-                        key.attr('type', 'text');
-                        show.val('Hide');
-                    } else {
-                        key.attr('type', 'password');
-                        show.val('Show');
-                    }
-                });
-            });
-            
-        </script>    
-        <!-- fim olho -->
+            if(key.attr('type') == 'password')
+            {
+                key.attr('type', 'text');
+                show.val('Hide');
+            } else {
+                key.attr('type', 'password');
+                show.val('Show');
+            }
+        });
+    });
+    
+</script>    
+<!-- fim olho -->
+
+<!-- inicio olho modal -->
+<script type="text/javascript">
+    $('#conteudoModal').on('show.bs.modal', function(event){
         
-        <!-- inicio arraste e solte -->
-        <script type="text/javascript">
-            jQuery(document).ready(function($){
-                $('.converter-upload').on('dragover', function(event){
-                    event.stopPropagation();
-                    event.preventDefault();                
-                    $(this).addClass('converter-upload-hover')
-                })
-                $('.converter-upload').on('dragleave', function(event){
-                    event.preventDefault();
-                    event.stopPropagation();
-                    $(this).removeClass('converter-upload-hover');
-                })
-                $('.converter-upload').on('drop', function(event){
-                    event.stopPropagation();
-                    event.preventDefault();                
-                    $(this).removeClass('converter-upload-hover');
-                })
+        $(document).ready(function(){
+            var show =  $('#show-modal');
+            show.on('click', function(){
+                var key = $('#txt-key-modal');
+                if(key.attr('type') == 'password')
+                {
+                    key.attr('type', 'text');
+                    show.val('Hide');
+                } else {
+                    key.attr('type', 'password');
+                    show.val('Show');
+                }
             });
-        </script>
-        <!-- fim arraste e solte -->   
+        });        
+    } ); 
+</script>
+<!-- fim olho modal -->
+
+<!-- inicio arraste e solte -->
+<script type="text/javascript">
+    jQuery(document).ready(function($){
+        $('.converter-upload').on('dragover', function(event){
+            event.stopPropagation();
+            event.preventDefault();                
+            $(this).addClass('converter-upload-hover')
+        })
+        $('.converter-upload').on('dragleave', function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            $(this).removeClass('converter-upload-hover');
+        })
+        $('.converter-upload').on('drop', function(event){
+            event.stopPropagation();
+            event.preventDefault();                
+            $(this).removeClass('converter-upload-hover');
+        })
+    });
+</script>
+<!-- fim arraste e solte -->   
 </body>
 </html>

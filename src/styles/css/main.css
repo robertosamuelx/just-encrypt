@@ -160,3 +160,11 @@ label-input {
 .converter-upload-hover{
     border-color:#0000FF;
 }
+
+#txt-key-modal{
+    border-right-style: none;  
+}
+
+#show-modal{
+    background-color: white;
+}
