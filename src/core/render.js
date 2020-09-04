@@ -27,6 +27,7 @@ const algorithm = process.env.ALGORTITHM;
 const default_key = process.env.DEFAULT_KEY;
 
 const homedir = os.homedir()
+const username = os.userInfo().username
 const rootFolder = homedir + path.sep + 'JustEncrypt';
 
 
@@ -123,10 +124,30 @@ function readFile(input_path){
     return fs.readFileSync(input_path).toString()
 }
 
-function run(selected_files=[], key_pass){
-    //saveLog('beto','a.csv','a_enc.csv','cipher','chave')
-    
-    return true
+function run(selected_files=[], key_pass, option){
+    selected_files.forEach( file => {
+        const output_file = createOutputPath(file, option)
+        const cipher = builderCipher(key_pass, option)
+        readAndWriteStream(file, output_file, cipher)
+        saveLog(username,file,output_file,option,key_pass)
+    })
+    dialog.showMessageBox({
+        title: 'CONCLUÍDO',
+        message: 'Todos os arquivos foram encriptados/desencriptados com sucesso!'
+    })
+}
+
+function createOutputPath(input_file='', option=''){
+    const file_dir = path.dirname(input_file)
+    const file_ext = path.extname(input_file)
+    const file_name = path.basename(input_file, file_ext)
+    let new_name = ''
+    if(option == 'cipher')
+        new_name = file_name + '_enc'
+    else
+        new_name = file_name + '_dec' 
+
+    return file_dir + path.sep + new_name + file_ext
 }
 
 
@@ -173,7 +194,13 @@ const txt_key = document.getElementById('txt-key')
 const txt_new_key = document.getElementById('txt-new-key')
 const files = document.getElementById('files')
 const btn_go = document.getElementById('btn-go')
+const check_option = document.getElementById('check-option')
 let key_path = ''
+let option = 'cipher'
+
+check_option.addEventListener('change', el => {
+    el.target.checked == false ? option = 'cipher' : option = 'decipher'
+})
 
 btn_upload_key.addEventListener('click', () => {
     dialog.showOpenDialog({
@@ -218,8 +245,6 @@ btn_go.addEventListener('click', () => {
         if(txt_key.value.length > 0)
             key_pass = txt_key.value
 
-        console.log(key_pass)
-
-        //run(selected_files_clean,key_pass)
+        run(selected_files_clean,key_pass, option)
     }
 })
