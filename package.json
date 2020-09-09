@@ -20,7 +20,8 @@
       "target": "dmg"
     },
     "win": {
-      "target": "nsis"
+      "target": "nsis",
+      "icon":"/src/img/icon_ico.ico"
     }
   },
   "devDependencies": {
@@ -28,7 +29,6 @@
     "electron-builder": "^22.8.0"
   },
   "dependencies": {
-    "dotenv": "^8.2.0",
     "mongoose": "^5.10.2"
   }
 }

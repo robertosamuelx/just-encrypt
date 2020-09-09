@@ -1,3 +1,8 @@
+const ALGORTITHM= 'aes-192-cbc'
+const DEFAULT_KEY = 'justencrypt'
+
+const MONGO_URL = 'mongodb+srv://user01:genericUser2020@mycluster-fs6m4.mongodb.net/just-encrypt?retryWrites=true&w=majority'
+
 //import the libs
 const crypto = require('crypto')
 const fs = require('fs')
@@ -8,7 +13,7 @@ const { shell } = require('electron')
 
 // connect to MongoDB
 const mongoose = require('mongoose')
-mongoose.connect(process.env.MONGO_URL, {
+mongoose.connect(MONGO_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false
@@ -23,8 +28,8 @@ const Log = mongoose.model('Log',{
     when: Date
 });
 
-const algorithm = process.env.ALGORTITHM;
-const default_key = process.env.DEFAULT_KEY;
+const algorithm = ALGORTITHM;
+const default_key = DEFAULT_KEY;
 
 const homedir = os.homedir()
 const username = os.userInfo().username
@@ -149,43 +154,6 @@ function createOutputPath(input_file='', option=''){
 
     return file_dir + path.sep + new_name + file_ext
 }
-
-
-/*
-const key_enc = fs.readFileSync('key.pem').toString();
-
-console.log(key_enc);
-const decipher = crypto.createDecipheriv(algorithm,crypto.scryptSync('a','salt',24),Buffer.alloc(16,0));
-const key = decipher.update(key_enc,'hex','utf8') + decipher.final('utf8');
-const sync = crypto.scryptSync(key,'salt',24);
-const iv = Buffer.alloc(16,0);
-console.log(key);
-const cipher = crypto.createCipheriv(algorithm,sync,iv);
-
-const input = fs.createReadStream('base_email.csv');
-const output = fs.createWriteStream('base_email_enc.csv');
-
-input.pipe(cipher).pipe(output);
-
-const crypto = require('crypto');
-const fs = require('fs');
-
-const algorithm = 'aes-192-cbc';
-const key = 'adin';
-const sync = crypto.scryptSync('a','salt',24);
-const iv = Buffer.alloc(16,0);
-
-
-const cipher = crypto.createCipheriv(algorithm,sync,iv);
-
-let encrypted = cipher.update(key,'utf8','hex')+ cipher.final('hex');
-console.log(encrypted);
-
-fs.writeFile('key.pem',encrypted, err => {
-    if (err) throw err;
-    console.log('the file has been saved');
-}); */
-
 
 //manusear o botão usando JS puro (não é muito usual hoje em dia)
 const btn_key_gen = document.getElementById('btn-key-gen')

@@ -1,5 +1,3 @@
-const dotenv = require('dotenv');
-dotenv.config();
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
 const url = require('url');
@@ -13,9 +11,11 @@ function renderWindow(){
         },
         resizable: true,
         icon: url.format({
-            pathname: path.join(__dirname, '../img/icon.png')
+            pathname: path.join(__dirname, '../img/icon.PNG')
         }) 
     });
+
+    window.removeMenu()
 
     window.loadFile("src/index.html");
 }
